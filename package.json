@@ -1,0 +1,41 @@
+{
+  "name": "milo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r build",
+    "build:packages": "pnpm --filter './packages/*' -r build",
+    "check": "ultracite check",
+    "db:generate": "dotenv -e .env -- pnpm --filter @milo/db db:generate",
+    "db:migrate": "dotenv -e .env -- pnpm --filter @milo/db db:migrate",
+    "db:studio": "dotenv -e .env -- pnpm --filter @milo/db db:studio",
+    "dev": "pnpm build:packages && dotenv -e .env -- pnpm -r --parallel dev",
+    "dev:agent": "pnpm build:packages && dotenv -e .env -- pnpm --filter '@milo/agent-service...' --parallel dev",
+    "dev:web": "dotenv -e .env -- pnpm --filter @milo/web dev",
+    "fix": "ultracite fix",
+    "infra:down": "docker compose down",
+    "infra:up": "docker compose up -d --wait postgres",
+    "lint:doctor": "ultracite doctor",
+    "smoke": "node --env-file-if-exists=.env scripts/smoke.mjs",
+    "stack:down": "docker compose down",
+    "stack:up": "docker compose up --build -d --wait",
+    "test": "pnpm -r --if-present test",
+    "typecheck": "pnpm build:packages && pnpm -r typecheck",
+    "verify": "pnpm check && pnpm build && pnpm -r typecheck && pnpm test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.8",
+    "@types/node": "24.19.2",
+    "dotenv-cli": "11.0.0",
+    "tsup": "9.0.0",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "ultracite": "8.2.1"
+  },
+  "packageManager": "pnpm@10.34.9",
+  "engines": {
+    "node": ">=24.22.3 <25",
+    "pnpm": ">=10.34.9 <11"
+  }
+}

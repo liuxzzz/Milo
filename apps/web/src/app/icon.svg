@@ -1,0 +1,18 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <title>Milo</title>
+  <rect
+    fill="#F5F3EF"
+    height="60"
+    rx="14"
+    stroke="#191615"
+    stroke-width="2"
+    width="60"
+    x="2"
+    y="2"
+  />
+  <path
+    d="M15 43V24h5v3c2-3 6-4 9-2 2 1 3 2 3 3 2-3 4-4 7-4 5 0 8 3 8 9v10h-5V33c0-3-1-5-4-5s-4 2-4 5v10h-5V33c0-3-1-5-4-5s-5 2-5 5v10Z"
+    fill="#191615"
+  />
+  <circle cx="52" cy="41" fill="#191615" r="3" />
+</svg>

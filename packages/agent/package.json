@@ -1,0 +1,28 @@
+{
+  "name": "@milo/agent",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --platform node --dts --sourcemap --clean",
+    "dev": "tsup src/index.ts --format esm --platform node --dts --sourcemap --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@mastra/core": "1.83.0",
+    "@mastra/pg": "1.36.0",
+    "pg": "8.23.1"
+  },
+  "devDependencies": {
+    "@types/pg": "8.23.1"
+  }
+}

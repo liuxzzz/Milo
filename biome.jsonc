@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["ultracite/biome/core"],
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": [
+      "!!**/dist",
+      "!!**/.next",
+      "!!**/node_modules",
+      "!**/next-env.d.ts",
+      "!packages/db/drizzle/meta"
+    ]
+  }
+}

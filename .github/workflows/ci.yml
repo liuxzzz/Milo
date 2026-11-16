@@ -1,0 +1,39 @@
+name: Foundation checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint:doctor
+      - run: pnpm verify
+      - run: docker compose config --quiet
+
+  containers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - run: docker compose up --build -d --wait --wait-timeout 180
+      - run: node scripts/smoke.mjs
+      - name: Container logs on failure
+        if: failure()
+        run: docker compose logs --no-color --tail=100
+      - name: Stop containers
+        if: always()
+        run: docker compose down
