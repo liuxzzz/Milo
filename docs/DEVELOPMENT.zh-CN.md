@@ -40,7 +40,7 @@ docker compose down
 
 | 路径 | 当前内容 |
 | --- | --- |
-| `apps/web` | Next.js App Router、五个空态页面、Web liveness、暖纸样式 |
+| `apps/web` | Next.js App Router、五个空态页面、Web liveness、Tailwind v4 与 Magic UI / shadcn 暖纸主题 |
 | `apps/agent-service` | Node HTTP 健康端点、环境校验、启动和信号关闭 |
 | `packages/agent` | Mastra 实例、空 Agents/Workflows/Tools 注册表、PostgresStore 与 worker 生命周期 |
 | `packages/domain` | Zod 健康响应契约、Decimal 接入；无财务规则 |

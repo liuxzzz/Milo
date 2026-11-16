@@ -14,6 +14,8 @@ Milo 致力于成为你的个人投资助手，帮助你分析投资组合、研
 
 V1.0 采用 **Next.js + TypeScript + Mastra + PostgreSQL**。前端、Agent 服务与共享包通过 pnpm workspace 管理；由常驻 Node.js 服务管理 Agent 与工作流生命周期。当前依赖版本已写入锁文件，真实 MCP、用户确认与业务任务恢复仍需单独验收。
 
+Web 使用 **Tailwind CSS v4 + Magic UI + shadcn/ui**。组件优先选用 Magic UI，不覆盖所需交互时使用 shadcn/ui，统一沿用暖纸主题。配置与添加方式见 [Web 组件说明](apps/web/README.md)。
+
 ## 本地开发
 
 使用 `.node-version` 指定的 **Node.js 24.22.3** 和 `packageManager` 指定的 **pnpm 10.34.9**，并启动 Docker。

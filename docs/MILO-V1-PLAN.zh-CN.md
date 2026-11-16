@@ -171,7 +171,7 @@ Skill 是任务规范，Workflow 是执行流程，两者分别版本化。MCPCl
 | 层次 | 方案与职责 |
 | --- | --- |
 | 单仓库 | pnpm workspace，前端、Agent 服务、共享契约和评测同仓库 |
-| Web | Next.js / React，负责页面、访问控制、业务 API 与流式任务展示 |
+| Web | Next.js / React + Tailwind CSS v4；组件优先 Magic UI，其次 shadcn/ui。负责页面、访问控制、业务 API 与流式任务展示 |
 | Agent 服务 | 常驻 Node.js 进程运行 Mastra，执行研究与复查，接入启动、恢复扫描和关闭生命周期 |
 | 编排 | Mastra Agents + 基础 Workflows；固定步骤由工作流组织，开放式研究由步骤内 Agent 完成 |
 | 工具 | Mastra MCPClient 连接投资记账本；自定义结构化工具封装财务计算、证据查询和受控写入 |

@@ -24,3 +24,9 @@ This repository uses Ultracite with Biome. The root preset is `ultracite/biome/c
 ## Web design
 
 Use the existing warm paper palette and spacing in `apps/web/src/app/globals.css`. Follow the user's warm technical design guide when extending the UI. Product screens should describe user tasks, not internal implementation details.
+
+- Use Tailwind CSS v4 for layout and styling, with semantic shadcn theme variables in `globals.css`.
+- Component selection order: Magic UI first when it fits the interaction, accessibility, and visual requirements; otherwise use shadcn/ui. Write a custom primitive only when neither library covers the need.
+- Use the configured `@magicui` registry in `apps/web/components.json`. Keep Magic UI components in `src/components/magicui` and shadcn primitives in `src/components/ui`.
+- Preserve the warm paper theme, keyboard behavior, and reduced-motion support when adapting registry components. Decorative effects must stay local to illustrations and must not suggest live data or active work.
+- Use the shared `cn` helper for class merging. Run Ultracite on generated component source too; do not exclude vendor-derived UI files from checks.

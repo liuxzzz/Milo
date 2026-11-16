@@ -14,6 +14,8 @@ The infrastructure foundation is in place: a Web workspace with empty states, a 
 
 V1.0 uses **Next.js + TypeScript + Mastra + PostgreSQL** in a pnpm workspace. A persistent Node.js service owns the Agent runtime lifecycle. Dependency versions are pinned for this foundation; real MCP access, human confirmation, and business workflow recovery still require separate acceptance tests.
 
+The Web app uses **Tailwind CSS v4 + Magic UI + shadcn/ui**. Prefer Magic UI when it fits the required interaction; fall back to shadcn/ui, keeping the shared warm paper theme. See the [Web component guide](apps/web/README.md).
+
 ## Local development
 
 Use **Node.js 24.22.3** (`.node-version`), **pnpm 10.34.9** (`packageManager`), and a running Docker engine.
