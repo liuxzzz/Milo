@@ -11,6 +11,16 @@ export const workspaceViews = [
       "账本连接功能准备中。接入后，持仓与资产配置将在这里显示。",
   },
   {
+    slug: "chat",
+    href: "/chat",
+    label: "对话",
+    eyebrow: "CONVERSATION",
+    title: "投资对话",
+    description: "从一个问题开始，一起理解你的投资。",
+    emptyTitle: "今天想聊些什么？",
+    emptyDescription: "对话服务准备中，你可以先整理想讨论的问题。",
+  },
+  {
     slug: "research",
     href: "/research",
     label: "研究",

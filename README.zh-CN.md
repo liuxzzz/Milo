@@ -8,13 +8,13 @@ Milo 致力于成为你的个人投资助手，帮助你分析投资组合、研
 
 ## 项目状态
 
-基础工程已搭建：包含 Web 空态工作台、常驻 Mastra 服务、PostgreSQL 接入、共享包、Ultracite 代码规范与容器配置。投资业务逻辑、真实账本连接及模型调用尚未实现。
+基础工程已搭建：包含 Web 空态工作台、`/chat` 聊天 UI、常驻 Mastra 服务、PostgreSQL 接入、共享包、Ultracite 代码规范与容器配置。聊天页面支持编辑草稿和点击建议预填，发送保持禁用。投资业务逻辑、真实账本连接、模型调用及远端会话持久化尚未实现，会话恢复尚未验证。
 
 ## 技术方案
 
 V1.0 采用 **Next.js + TypeScript + Mastra + PostgreSQL**。前端、Agent 服务与共享包通过 pnpm workspace 管理；由常驻 Node.js 服务管理 Agent 与工作流生命周期。当前依赖版本已写入锁文件，真实 MCP、用户确认与业务任务恢复仍需单独验收。
 
-Web 使用 **Tailwind CSS v4 + Magic UI + shadcn/ui**。组件优先选用 Magic UI，不覆盖所需交互时使用 shadcn/ui，统一沿用暖纸主题。配置与添加方式见 [Web 组件说明](apps/web/README.md)。
+Web 使用 **Tailwind CSS v4 + assistant-ui + Magic UI + shadcn/ui**。Agent 聊天专用组件使用 assistant-ui；普通 UI 优先选用 Magic UI，不覆盖所需交互时使用 shadcn/ui，统一沿用暖纸主题。当前聊天 runtime 仅为 UI 的外部状态适配，后续数据由独立的 Mastra 服务提供，不依赖 Assistant Cloud。固定版本与接入范围见 [Web 组件说明](apps/web/README.md)。
 
 ## 本地开发
 
@@ -27,7 +27,7 @@ pnpm infra:up
 pnpm dev
 ```
 
-打开 [Milo 工作台](http://localhost:3000)。Agent 服务默认运行在 `127.0.0.1:4111`，仅提供健康检查。
+打开 [Milo 工作台](http://localhost:3000) 或 [聊天 UI](http://localhost:3000/chat)。Agent 服务默认运行在 `127.0.0.1:4111`，仅提供健康检查。
 
 也可以直接启动完整容器栈：
 
@@ -35,7 +35,7 @@ pnpm dev
 docker compose up --build -d --wait
 ```
 
-两种模式共用默认端口，请选择一种运行。业务页面均为空态，无需模型密钥或账本凭据。
+两种模式共用默认端口，请选择一种运行。当前空态与聊天 UI 无需模型密钥或账本凭据。
 
 ## 工程检查
 

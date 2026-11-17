@@ -1,8 +1,8 @@
 # Milo 基础工程开发说明
 
-更新：2026-11-16。
+更新：2026-11-17。
 
-当前交付仅包含可启动的工程骨架。持仓、研究、投资档案、复查、用户认证、任务业务 API、模型供应商配置与实际账本接入均待实现。健康检查只能证明基础进程及数据库可用，不能证明投资工作流可用。
+当前交付包含可启动的工程骨架和 `/chat` 的 assistant-ui 对话界面。对话页可以编辑本页草稿，发送尚未开放；持仓、研究、投资档案、复查、用户认证、任务业务 API、模型供应商配置与实际账本接入均待实现。健康检查只能证明基础进程及数据库可用，不能证明投资工作流可用。
 
 ## 环境与启动
 
@@ -40,7 +40,7 @@ docker compose down
 
 | 路径 | 当前内容 |
 | --- | --- |
-| `apps/web` | Next.js App Router、五个空态页面、Web liveness、Tailwind v4 与 Magic UI / shadcn 暖纸主题 |
+| `apps/web` | Next.js App Router、五个业务空态页面、assistant-ui 对话页、Web liveness、Tailwind v4 与 Magic UI / shadcn 暖纸主题 |
 | `apps/agent-service` | Node HTTP 健康端点、环境校验、启动和信号关闭 |
 | `packages/agent` | Mastra 实例、空 Agents/Workflows/Tools 注册表、PostgresStore 与 worker 生命周期 |
 | `packages/domain` | Zod 健康响应契约、Decimal 接入；无财务规则 |
@@ -123,3 +123,12 @@ pnpm smoke
 - `docker compose config --quiet` 通过；PostgreSQL 容器实际运行正常。完整 Web / Agent 容器构建在拉取 Node 基础镜像时遇到 Docker Hub 超时、备用官方镜像仓库连接失败，因此 Linux 容器完整启动尚未验证。CI 配置已添加，远端 CI 尚未运行。
 
 本机默认 3000 端口已被其他程序占用，本次未跟踪的 `.env` 使用 `PORT=3310`。仓库示例仍以 3000 为默认值。
+
+## assistant-ui 接入验证
+
+2026-11-17，沿用 Node.js 24.22.3 / pnpm 10.34.9 完成对话 UI 接入：
+
+- `pnpm verify` 通过：70 个文件的规范检查、6 个 workspace 构建与类型检查、7 项既有基础测试。
+- `/chat` 使用 assistant-ui 外部状态 runtime；可以编辑草稿和点击示例问题预填。runtime 禁用发送，输入框与表单也阻止提交，未添加聊天 API 或模型请求。
+- 使用 ego (lite) 检查建议预填、输入焦点、回车及组合键不发送、刷新清空草稿、研究页与对话页导航。桌面输入框保持在视口内，375px / 390px 窄屏无横向溢出，并检查减少动态效果模式。
+- 本次仅启动 Web，在独立端口 `3317` 查看页面，未更改本地 `.env` 或 Agent 服务。未执行服务集成 smoke；未验证真实模型、MCP、会话持久化或断线恢复。

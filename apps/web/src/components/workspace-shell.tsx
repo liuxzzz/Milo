@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +13,13 @@ import { WorkspaceIllustration } from "@/components/workspace-illustration";
 import { cn } from "@/lib/utils";
 import { type WorkspaceView, workspaceViews } from "@/lib/workspace";
 
-export function WorkspaceShell({ view }: { view: WorkspaceView }) {
+export function WorkspaceShell({
+  view,
+  children,
+}: {
+  view: WorkspaceView;
+  children?: ReactNode;
+}) {
   return (
     <div className="min-h-svh min-[681px]:grid min-[681px]:grid-cols-[200px_minmax(0,1fr)] min-[1025px]:grid-cols-[240px_minmax(0,1fr)]">
       <a
@@ -74,9 +81,11 @@ export function WorkspaceShell({ view }: { view: WorkspaceView }) {
           想清楚，再向前。
         </p>
       </aside>
-      <div className="min-w-0">
+      <div className="flex min-w-0 flex-col">
         <header className="border-border flex min-h-14 items-center justify-between gap-4 border-b px-6 py-3 min-[681px]:min-h-[84px] min-[681px]:px-8 min-[681px]:py-4 min-[1025px]:px-12">
-          <span className="text-[13px]">个人工作台</span>
+          <span className="text-[13px]">
+            {view.slug === "chat" ? "投资对话" : "个人工作台"}
+          </span>
           <Badge
             className="border-border text-muted-foreground rounded-md px-2 py-1 font-normal"
             variant="outline"
@@ -85,49 +94,58 @@ export function WorkspaceShell({ view }: { view: WorkspaceView }) {
           </Badge>
         </header>
         <main
-          className="mx-auto w-full max-w-[1200px] px-6 pt-9 pb-6 focus:outline-none min-[681px]:px-8 min-[681px]:pt-12 min-[1025px]:px-16 min-[1025px]:pt-16 min-[1025px]:pb-8"
+          className={cn(
+            "mx-auto w-full max-w-[1200px] px-6 focus:outline-none min-[681px]:px-8 min-[1025px]:px-16",
+            children
+              ? "flex min-h-[640px] flex-col py-6 min-[681px]:h-[calc(100svh-84px)] min-[681px]:py-8"
+              : "pt-9 pb-6 min-[681px]:pt-12 min-[1025px]:pt-16 min-[1025px]:pb-8"
+          )}
           id="main-content"
           tabIndex={-1}
         >
-          <div>
-            <p className="text-muted-foreground mb-4 font-mono text-xs tracking-[0.09em]">
-              {view.eyebrow}
-            </p>
-            <h1 className="text-[clamp(32px,3vw,44px)] leading-[1.3] font-[450] tracking-[-0.035em]">
-              {view.title}
-            </h1>
-            <p className="text-muted-foreground mt-5 text-[15px] min-[681px]:text-base">
-              {view.description}
-            </p>
-          </div>
-          <section
-            aria-labelledby="empty-title"
-            className="mt-8 min-[681px]:mt-12"
-          >
-            <Empty className="border-border min-h-[340px] gap-0 rounded-xl border border-solid px-5 py-8 min-[681px]:min-h-[368px] min-[681px]:px-6 min-[681px]:py-10 md:px-6 md:py-10">
-              <EmptyHeader className="max-w-[400px] gap-3">
-                <EmptyMedia className="mb-0" variant="default">
-                  <WorkspaceIllustration />
-                </EmptyMedia>
-                <Badge
-                  className="text-muted-foreground rounded-md px-2 py-1 font-normal"
-                  variant="secondary"
-                >
-                  尚未接入
-                </Badge>
-                <EmptyTitle className="text-xl font-medium">
-                  <h2 id="empty-title">{view.emptyTitle}</h2>
-                </EmptyTitle>
-                <EmptyDescription className="text-sm leading-[1.8]">
-                  {view.emptyDescription}
-                </EmptyDescription>
-              </EmptyHeader>
-            </Empty>
-          </section>
-          <footer className="text-muted-foreground mt-8 flex flex-wrap justify-between gap-x-6 gap-y-2 font-mono text-xs">
-            <span>Milo</span>
-            <span>Your personal investment assistant.</span>
-          </footer>
+          {children ?? (
+            <>
+              <div>
+                <p className="text-muted-foreground mb-4 font-mono text-xs tracking-[0.09em]">
+                  {view.eyebrow}
+                </p>
+                <h1 className="text-[clamp(32px,3vw,44px)] leading-[1.3] font-[450] tracking-[-0.035em]">
+                  {view.title}
+                </h1>
+                <p className="text-muted-foreground mt-5 text-[15px] min-[681px]:text-base">
+                  {view.description}
+                </p>
+              </div>
+              <section
+                aria-labelledby="empty-title"
+                className="mt-8 min-[681px]:mt-12"
+              >
+                <Empty className="border-border min-h-[340px] gap-0 rounded-xl border border-solid px-5 py-8 min-[681px]:min-h-[368px] min-[681px]:px-6 min-[681px]:py-10 md:px-6 md:py-10">
+                  <EmptyHeader className="max-w-[400px] gap-3">
+                    <EmptyMedia className="mb-0" variant="default">
+                      <WorkspaceIllustration />
+                    </EmptyMedia>
+                    <Badge
+                      className="text-muted-foreground rounded-md px-2 py-1 font-normal"
+                      variant="secondary"
+                    >
+                      尚未接入
+                    </Badge>
+                    <EmptyTitle className="text-xl font-medium">
+                      <h2 id="empty-title">{view.emptyTitle}</h2>
+                    </EmptyTitle>
+                    <EmptyDescription className="text-sm leading-[1.8]">
+                      {view.emptyDescription}
+                    </EmptyDescription>
+                  </EmptyHeader>
+                </Empty>
+              </section>
+              <footer className="text-muted-foreground mt-8 flex flex-wrap justify-between gap-x-6 gap-y-2 font-mono text-xs">
+                <span>Milo</span>
+                <span>Your personal investment assistant.</span>
+              </footer>
+            </>
+          )}
         </main>
       </div>
     </div>

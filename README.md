@@ -8,13 +8,13 @@ Milo aims to be a personal investment assistant for portfolio analysis and compa
 
 ## Status
 
-The infrastructure foundation is in place: a Web workspace with empty states, a persistent Mastra service, PostgreSQL integration, shared packages, Ultracite standards, and container configuration. Investment workflows, live ledger integration, and model calls are not implemented yet.
+The infrastructure foundation is in place: a Web workspace with empty states and a chat UI at `/chat`, a persistent Mastra service, PostgreSQL integration, shared packages, Ultracite standards, and container configuration. The chat page supports editing a draft and prefilling it from suggestions; sending is disabled. Investment workflows, live ledger integration, model calls, and remote conversation persistence are not implemented yet; conversation recovery has not been validated.
 
 ## Architecture
 
 V1.0 uses **Next.js + TypeScript + Mastra + PostgreSQL** in a pnpm workspace. A persistent Node.js service owns the Agent runtime lifecycle. Dependency versions are pinned for this foundation; real MCP access, human confirmation, and business workflow recovery still require separate acceptance tests.
 
-The Web app uses **Tailwind CSS v4 + Magic UI + shadcn/ui**. Prefer Magic UI when it fits the required interaction; fall back to shadcn/ui, keeping the shared warm paper theme. See the [Web component guide](apps/web/README.md).
+The Web app uses **Tailwind CSS v4 + assistant-ui + Magic UI + shadcn/ui**. Agent chat components use assistant-ui; general UI prefers Magic UI when it fits the required interaction, then shadcn/ui, keeping the shared warm paper theme. The current chat runtime is a UI-only external-store adapter; future data will come from the separate Mastra service, without an Assistant Cloud dependency. See the [Web component guide](apps/web/README.md) for pinned versions and integration limits.
 
 ## Local development
 
@@ -27,7 +27,7 @@ pnpm infra:up
 pnpm dev
 ```
 
-Open [Milo](http://localhost:3000). The Agent service listens on `127.0.0.1:4111` and exposes health endpoints only. No model or ledger credentials are needed.
+Open [Milo](http://localhost:3000) or the [chat UI](http://localhost:3000/chat). The Agent service listens on `127.0.0.1:4111` and exposes health endpoints only. No model or ledger credentials are needed for the current UI.
 
 Alternatively, run the complete container stack with `docker compose up --build -d --wait`. Choose one mode: both use the same default ports.
 

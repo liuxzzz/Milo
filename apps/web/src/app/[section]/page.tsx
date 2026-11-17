@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { AssistantWorkspace } from "@/components/assistant-ui/assistant-workspace";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { findWorkspaceView, workspaceViews } from "@/lib/workspace";
 
@@ -28,6 +29,14 @@ export default async function SectionPage({ params }: SectionPageProps) {
 
   if (!view || view.slug === "overview") {
     notFound();
+  }
+
+  if (view.slug === "chat") {
+    return (
+      <WorkspaceShell view={view}>
+        <AssistantWorkspace />
+      </WorkspaceShell>
+    );
   }
 
   return <WorkspaceShell view={view} />;
